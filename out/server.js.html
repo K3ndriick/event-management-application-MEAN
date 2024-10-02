@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: server.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: server.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @author Lim Jun Kee &lt;jlim0211@student.monash.edu>
+ * @author Kendrick Lee Jhia Chuen &lt;klee0117@student.monash.edu>
+ */
+
+
+
+/**
+ * Import express module.
+ * @const 
+ */
+const express = require('express');
+
+/**
+ * Import path module.
+ * @const 
+ */
+const path = require("path");
+
+/**
+ * Import mongoose module.
+ * @const 
+ */
+const mongoose = require("mongoose");
+
+
+
+// Importing object models
+/**
+ * Import the Operation model.
+ * @const
+ */
+const Operation = require("./models/operation.js");
+
+/**
+ * Import the Category model.
+ * @const
+ */
+const Category = require('./models/event-category.js');
+
+/**
+ * Import the Event model.
+ * @const
+ */
+const Event = require('./models/event.js');
+
+
+
+// Importing routers &amp; APIs
+/**
+ * Import the categoryRouter module for routing.
+ * @const
+ */
+const categoryRouter = require("./routes/routerCategory.js");
+
+/**
+ * Import the categoryRouterApi module for routing.
+ * @const
+ */
+const categoryRouterApi = require("./routes/category-api.js");
+
+/**
+ * Import the eventRouter module for routing.
+ * @const
+ */
+const eventRouter = require("./routes/routerEvent.js");
+
+/**
+ * Import the eventRouterApi module for routing.
+ * @const
+ */
+const eventRouterApi = require("./routes/event-api.js");
+
+
+
+// Setting up express()
+/**
+ * Create a new Express application instance.
+ * @const 
+ */
+const app = express();
+
+
+
+//Setup the view Engine
+/**
+ * Configure the view engine for rendering HTML templates using EJS.
+ * 
+ * @name engine
+ * @function
+ * @param {string} ext - The file extension to associate with the view engine.
+ * @param {Function} callback - The function used to render templates.
+ * 
+ */
+app.engine('html', require('ejs').renderFile);
+
+/**
+ * Set the view engine to be used for rendering templates.
+ * 
+ * @name set
+ * @function
+ * @param {string} setting - The name of the view engine.
+ * @param {any} val  - value that assign to the "view engine" setting.
+ * 
+ */
+app.set('view engine', 'html');
+
+/**
+ * Set the directory path for views/templates.
+ * 
+ * @name set
+ * @function
+ * @param {string} setting - The setting name.
+ * @param {any} val - The directory path.
+ *
+ */
+app.set('views', path.join(__dirname, 'views'));
+
+
+
+//Setup the static assets directories
+/**
+ * Serve static files from the "images" directory.
+ * 
+ * @name use
+ * @function
+ * @param {string} path - The directory path to serve static files from.
+ * 
+ */
+app.use(express.static('images'));
+
+/**
+ * Serve static files from the "css" directory.
+ *
+ * @name use
+ * @function
+ * @param {string} path - The directory path to serve static files from.
+ */
+app.use(express.static('css'));
+
+
+
+/**
+ * Serve static files from the "node_modules/bootstrap/dist/css" directory
+ *
+ * @name use
+ * @function
+ * @param {string} path - The directory path to serve static files from.
+ * 
+ */
+app.use(express.static("node_modules/bootstrap/dist/css"));
+
+
+
+// Serve static files and JSON parsing middleware
+/**
+ * Parse JSON data from request bodies using Express middleware.
+ * 
+ * @name use
+ * @function
+ * @param {Object} options - Options for parsing the JSON data.
+ *
+ */
+app.use(express.json());
+
+/**
+ * Parse URL-encoded data from request bodies using Express middleware.
+ * 
+ * @name use
+ * @function
+ * @param {Object} options - Options for parsing the URL-encoded data.
+ * @param {boolean} options.extended - Specifies whether to use the `qs` library for parsing (true) or the `querystring` library (false).
+ * 
+ */
+app.use(express.urlencoded({extended: true}));
+
+
+
+// MongoDB database url connection
+/**
+ * The URL for connecting to the MongoDB database.
+ * @const {string}
+ */
+const url = "mongodb://localhost:27017/eventCategoryDb";
+
+
+
+// Setting up connection to MongoDB
+/**
+ * @name connect
+ * @function
+ * @param {string} url - The URL of the MongoDB database.
+ */
+async function connect(url) {
+  try {
+    await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log("Connected to MongoDB successfully");
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+  }
+}
+
+
+
+// Setting up index.html page
+/**
+ * Handles a HTTP GET request to the route '/' and renders the 'index' html template.
+ * @name get
+ * @function
+ * @param {string} path - Route path that the route handler is associated with.
+ * @param {Function} callback - express callback
+ */
+app.get("/", async function (req, res) {
+
+  try {
+    let categoryCount = await Category.countDocuments();
+    let eventCount = await Event.countDocuments();
+    let operationObj = await Operation.findOne({ modifyId: "Operation" });
+
+    if (!operationObj) {
+      operationObj = new Operation();
+      await operationObj.save();
+    }
+
+    res.render("index", { categoryCount, eventCount, operationObj });
+
+  } catch (err) {
+    console.error("Error handling '/' route:", err);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+/**
+ * Serve static files from the "views" directory
+ *
+ * @name use
+ * @function
+ * @param {string} path - The directory path to serve static files from.
+ */
+app.use(express.static('views'));
+
+// Mounting routers
+/**
+ * Mount the specified router under the "/category" path in the Express application for categories.
+ * 
+ * @name use
+ * @function
+ * @param {string} path - The base path to mount the router under.
+ * @param {Object} router - The Express router object to be mounted.
+ *
+ */
+app.use("/category", categoryRouter);
+
+/**
+ * Mount the specified router under the "/api/v1/category" path in the Express application for API routing.
+ * 
+ * @name use
+ * @function
+ * @param {string} path - The base path to mount the router under.
+ * @param {Object} router - The Express router object to be mounted.
+ *
+ */
+app.use("/api/v1/category", categoryRouterApi);
+
+/**
+ * Mount the specified router under the "/kendrick" path in the Express application for events.
+ * 
+ * @name use
+ * @function
+ * @param {string} path - The base path to mount the router under.
+ * @param {Object} router - The Express router object to be mounted.
+ *
+ */
+app.use("/kendrick", eventRouter);
+
+/**
+ * Mount the specified router under the "/kendrick/api/v1" path in the Express application for API routing.
+ * 
+ * @name use
+ * @function
+ * @param {string} path - The base path to mount the router under.
+ * @param {Object} router - The Express router object to be mounted.
+ *
+ */
+app.use("/kendrick/api/v1", eventRouterApi);
+
+
+// Setting up port number
+/**
+ * The port on which the Express server is listening.
+ * @const {number}
+ */
+const port = process.env.PORT || 8081;
+
+/**
+ * Starting the server and listening on the specified port.
+ *
+ * @name listen
+ * @function
+ * @param {number} port - The port which will be used by the server to listen.
+ *
+ */
+app.listen(port, () => {
+  console.log(`Server listening at : http://localhost:${port}`);
+});
+
+connect(url);</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Category">Category</a></li><li><a href="global.html#Event">Event</a></li><li><a href="global.html#Operation">Operation</a></li><li><a href="global.html#app">app</a></li><li><a href="global.html#categoryRouter">categoryRouter</a></li><li><a href="global.html#categoryRouterApi">categoryRouterApi</a></li><li><a href="global.html#connect">connect</a></li><li><a href="global.html#engine">engine</a></li><li><a href="global.html#eventRouter">eventRouter</a></li><li><a href="global.html#eventRouterApi">eventRouterApi</a></li><li><a href="global.html#express">express</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#listen">listen</a></li><li><a href="global.html#mongoose">mongoose</a></li><li><a href="global.html#path">path</a></li><li><a href="global.html#port">port</a></li><li><a href="global.html#set">set</a></li><li><a href="global.html#url">url</a></li><li><a href="global.html#use">use</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Sep 15 2023 20:30:40 GMT+0800 (Malaysia Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

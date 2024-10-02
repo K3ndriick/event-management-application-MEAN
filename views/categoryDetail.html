@@ -1,0 +1,127 @@
+<!DOCTYPE html> <!-- declaring  document type as HTML 5 -->
+<html lang="en"> <!-- declaring English as language for HTML file content -->
+
+
+<head>
+    <meta charset="UTF-8"> <!--character coding set to UTF-8 -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- setting content width to be optimised for all devices -->
+    <!-- initial page appearance set to zoom scale of 1 -->
+
+    <title>Admin Panel</title>
+
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    <!--use Bootstrap and CSS styles in the file -->
+</head>
+
+
+<body> <!-- Header section with Team Logo -->
+    <div class="header">
+        <img class="logo" src="/EventTeamLogo.png" alt="Logo">
+    </div>
+    
+    <div class="content">
+        <h1><%= categoryDetails.name %> </h1>
+        
+    </div>
+
+
+    <!--Main content section -->
+    <div class="album py-5"> <!-- Using bootstrap to create a styled container -->
+
+        <div class="card">
+            <div class="card-body"> <!-- Body of the card -->
+                <form>
+                    <!-- Creating sections that have labels for category attributes -->
+                    <div class="form-group"> <!-- Category ID -->
+                        <label for="categoryId" class="font-weight-bold">Category Id:</label>
+                        <div><%= categoryDetails.modifyId %></div>
+                    </div>
+                    
+                    <div class="form-group"> <!-- Category Name -->
+                        <label for="name" class="font-weight-bold mt-3">Name:</label>
+                        <div><%= categoryDetails.name %></div>
+                    </div>
+        
+                    <div class="form-group"> <!-- Category Description -->
+                        <label for="description" class="font-weight-bold mt-3">Description</label>
+                        <div><%= categoryDetails.description %></div>
+                    </div>
+        
+                    <div class="form-group"> <!-- Category Created Date Time -->
+                        <label for="startDateTime" class="font-weight-bold mt-3">Created Date Time</label>
+                        <div><%= categoryDetails.formattedDate() %></div>
+                    </div>
+        
+                </form>
+            </div>
+
+
+
+        <div class="container"> <!-- Creating a container -->
+            <h3 class="my-2">Event table</h3> 
+            <div class="row row-cols-1 g-3"> <!-- Creating a grid layout with specific number of columns -->
+                <div class="col"> <!-- Creating a column-->
+                    <table class="table table-hover"> <!-- Creating a table with hover effect -->
+                        <thead>
+                            <tr>
+                                <!-- Creating table headers-->
+                                <th scope="col">Event Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Start Date Time</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Is Active</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Capacity</th>
+                                <th scope="col">Tickets Available</th>
+                                <th scope="col">Category Id</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        
+                        <!-- Looping through database records and outputting events -->
+                        <tbody>
+                            <% for (let i = 0; i < records.length; i++) { %>
+                                <tr>
+                                    <th scope="row"><%= records[i].modifyId %></th>
+                                    <td><%= records[i].name %></td>
+                                    <td><%= records[i].description %></td>
+                                    <td><%= records[i].formatStartEndDateTime()[0]%></td>
+                                    <td><%= records[i].formattedDurationInMinutes() %></td>
+                                    <td>
+                                        <% if (records[i].isActive) { %>
+                                            <span>✅</span>
+                                        <% } else { %>
+                                            <span>❌</span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <% if (records[i].image === '/event-category.png') { %>
+                                            <img class="logo" src="<%= records[i].image %>" alt="Logo">
+                                        <% } else { %>
+                                            <img class="logo" src="/error-Image.png" alt="Default Logo">
+                                        <% } %>
+                                    </td>
+                                    <td><%= records[i].capacity %></td>
+                                    <td><%= records[i].ticketsAvailable %></td>
+                                    <td><%= eventFormattedCattegoryArray[i]%></td>
+                                    <!-- Button to view the record's details-->
+                                    <td>
+                                        <a href="/category/33207798/event/<%= records[i].modifyId %>" class="button-link">View</a>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>

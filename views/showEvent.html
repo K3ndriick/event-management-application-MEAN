@@ -1,0 +1,95 @@
+<!DOCTYPE html> <!-- declaring  document type as HTML 5 -->
+<html lang="en"> <!-- declaring English as language for HTML file content -->
+
+
+<head>
+    <meta charset="UTF-8"> <!--character coding set to UTF-8 -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- setting content width to be optimised for all devices -->
+    <!-- initial page appearance set to zoom scale of 1 -->
+
+    <title>Admin Panel</title>
+
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    <!--use Bootstrap and CSS styles in the file -->
+</head>
+
+
+<body> <!-- Header section with event page Logo -->
+    <div class="header">
+        <img class="logo" src="/event-page.png" alt="Logo">
+    </div>
+
+    <div class="content">
+        <h1><%= event.name %></h1>
+    </div> 
+
+    
+    <div class="card">
+        <div class="card-body"> <!-- Body of the card -->
+            <form>
+                <!-- Creating sections that have labels for event attributes -->
+                <div class="form-group"> <!-- Event ID -->
+                    <label for="eventId" class="font-weight-bold">Event Id:</label>
+                    <div><%= event.modifyId %></div>
+                </div>
+                
+                <div class="form-group"> <!-- Event Name -->
+                    <label for="name" class="font-weight-bold mt-3">Name:</label>
+                    <div><%= event.name %></div>
+                </div>
+    
+                <div class="form-group"> <!-- Event Description -->
+                    <label for="description" class="font-weight-bold mt-3">Description:</label>
+                    <div><%= event.description %></div>
+                </div>
+    
+                <div class="form-group"> <!-- Event Start Date Time -->
+                    <label for="startDateTime" class="font-weight-bold mt-3">Start Date Time:</label>
+                    <div><%= formatStartTime %></div>
+                </div>
+    
+                <div class="form-group"> <!-- Event End Date Time -->
+                    <label for="endDateTime" class="font-weight-bold mt-3">End Date Time:</label>
+                    <div><%= formatEndTime %></div>
+                </div>
+                
+                <div class="form-group"> <!-- Event Duration -->
+                    <label for="duration" class="font-weight-bold mt-3">Duration:</label>
+                    <div><%= formatDuration %></div>
+                </div>
+                
+                <div class="form-group"> <!-- Event Active Status -->
+                    <label for="isActive" class="font-weight-bold mt-3">Is Active:</label>
+                    <div>
+                        <% if (event.isActive) { %>
+                            <span>✅</span>
+                        <% } else { %>
+                            <span>❌</span>
+                        <% } %>
+                    </div>
+                </div>
+    
+                <div class="form-group"> <!-- Event Capacity -->
+                    <label for="capacity" class="font-weight-bold mt-3">Capacity:</label>
+                    <div><%= event.capacity %></div>
+                </div>
+    
+                <div class="form-group"> <!-- Event Tickets Available -->
+                    <label for="ticketsAvailable" class="font-weight-bold mt-3">Tickets Available:</label>
+                    <div><%= event.ticketsAvailable %></div>
+                </div>
+    
+                <div class="form-group"> <!-- Event Category ID -->
+                    <label for="categoryId" class="font-weight-bold mt-3">Category Id:</label>
+                    <div><%=categoryString %></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

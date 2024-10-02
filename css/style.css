@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-image: url('background3.jpg');
+}
+
+.header {
+    padding: 20px;
+}
+
+.logo {
+    max-width: 300px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.footer {
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+.content {
+    padding: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button {
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button-container {
+    display: flex;
+    gap: 5px; /* Adjust this value to control the spacing between buttons */
+}
+
+
+.button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Set your desired button color */
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .button-link:hover {
+    background-color: #0056b3; /* Set a darker color for hover effect */
+  }
+
+  .column {
+    float: left;
+    width: 20%;
+    padding: 10 10px;
+  }
+  
+  /* Remove extra left and right margins, due to padding in columns */
+  .row {margin: 0 -5px;}
+  
+  .card-title {
+    font-size: 1.5rem; /* Adjust the font size to make it larger (you can change the value) */
+    font-weight: bold; /* Make the text thicker */
+  }

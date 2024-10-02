@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <title>Admin Panel</title> -->
+    
+
+    <!-- Include Bootstrap min CSS -->
+    <link href="/bootstrap.min.css" rel="stylesheet">
+     <!-- Include style css -->
+    <link href="/style.css" rel="stylesheet">
+
+
+    
+</head>
+<body>
+    <!-- Header section
+         with /EventTeamLogo.png
+         image
+    -->
+    <div class="header">
+        <img class="logo" src="/EventTeamLogo.png" alt="Logo">
+    </div>
+
+    <div class="row">
+        <div class="column">
+          <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title"><%= eventCount %></h5>
+                <p class="card-text">Events</p>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><%= categoryCount %></h5>
+                <p class="card-text">Categories</p>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><%= operationObj.recordsCreated %></h5>
+                <p class="card-text">Records Created</p>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><%= operationObj.recordsDeleted %></h5>
+                <p class="card-text">Records Deleted</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+              <div class="card-body">
+                  <h5 class="card-title"><%= operationObj.recordsUpdates %></h5>
+                  <p class="card-text">Records Updates</p>
+              </div>
+            </div>
+          </div>
+      </div>
+
+    <!-- Add 5 side by side card-->
+
+
+    <!-- Content section -->
+    <div class="content">
+        <h1>Admin Panel</h1>
+        <p>TasksGroup1 (student#1)</p>
+        
+        
+
+        <div class="buttons">
+            <!-- Container for the button links -->
+            <div class="button-container">
+                <!-- Link to "Add Category" route -->
+                <a href="/category/33207798/add-category" class="button-link">Add Category</a>
+                
+                <!-- Link to "List all categories" route -->
+                <a href="/category/33207798/list-category" class="button-link">List all categories</a>
+                
+                <!-- Link to "List categories by keyword" route -->
+                <a href="/category/33207798/search-category" class="button-link">List categories by keyword</a>
+                
+                <!-- Link to "Show Event Details" route -->
+                <a href="/category/33207798/event/DEFID" class="button-link">Show Event Details</a>
+                
+                <!-- Link to "Delete Category By Id" route -->
+                <a href="/category/33207798/delete-category" class="button-link">Delete Category By Id</a>
+            </div>
+        </div>
+
+
+        <p></p>
+        <p>TasksGroup2 (student#2)</p>
+        
+
+        <div class="buttons">
+            <!-- Link designed as a button to redirect to "Add Event" page-->
+            <form action="/kendrick/event/add-event" method="GET">
+                <button class="button">Add Event</button>
+            </form>
+
+            <!-- Link designed as a button to redirect to "List Events" page-->
+            <form action="/kendrick/event/list-events" method="GET">
+                <button class="button">List all Events</button>
+            </form>
+
+            <!-- Link designed as a button to redirect to "Sold Out Events" page-->
+            <form action="/kendrick/event/list-sold-out-events" method="GET">
+                <button class="button">List Sold Out Events</button>
+            </form>
+
+            <!-- Link designed as a button to redirect to "Category Detail" page-->
+            <form action="/kendrick/event/category-detail/DEFID" method="GET">
+                <button class="button">Category Detail Page</button>
+            </form>
+
+            <!-- Link designed as a button to redirect to "Delete Event" page-->
+            <form action="/kendrick/event/delete-event" method="GET">
+                <button class="button">Delete Event By Id</button>
+            </form>
+        </div>
+
+    </div>
+    <h1>Designed by</h1>
+    <img class="logo" src="TeamLogo.png" alt="Logo">
+
+</body>
+</html>

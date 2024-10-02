@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title> -->
+
+    <!-- Include Bootstrap min CSS -->
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <!-- Include style css -->
+    <link href="/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header section
+         with /EventTeamLogo.png
+         image
+    -->
+    <div class="header">
+        <img class="logo" src="/EventTeamLogo.png" alt="Logo">
+    </div>
+     <!-- Content section -->
+    <div class="content">
+        <h1>Delete Category</h1>
+        <p>Fill in category id & click submit</p>
+    </div>
+    <!-- Main content -->
+    <main>
+        <!-- Create a container for an album-like section on a web page. -->
+        <div class="album py-5">
+            <!-- Create a row with a specific layout in Bootstrap's grid system -->
+            <div class="container">
+                <!-- Create a row with a specific layout in Bootstrap's grid system -->
+                <div class="row row-cols-1 row-cols-sm-2 g-3">
+                    <!-- Create a column with centered content using Bootstrap's grid system -->
+                    <div class="col mx-auto"> 
+                        <!-- Create a card with shadow effect -->
+                        <div class="card shadow-sm">
+                            <!-- Styling to create a visually distinct header section within the card. -->
+                            <div class="card-header">
+                                <h4 class="my-0 fw-normal">Delete category Information</h4>
+                            </div>
+                            <!-- Contains the body of a card and is centered within its parent container.-->
+                            <div class="card-body text-center">
+                                <!-- Form for adding category information -->
+                                <form action="/category/33207798/delete-category-post" method="POST">
+                                    <div class="mb-3">
+                                        <label for="categoryId" class="form-label">Category Name</label>
+                                        <input type="text" name="categoryId" class="form-control" id="categoryId" placeholder="Enter category ID" />
+                                    </div>
+
+                                    <!-- Submit button -->
+                                    <button class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

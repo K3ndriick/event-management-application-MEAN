@@ -1,0 +1,60 @@
+<!DOCTYPE html> <!-- declaring  document type as HTML 5 -->
+<html lang="en"> <!-- declaring English as language for HTML file content -->
+
+
+<head>
+    <meta charset="UTF-8"> <!--character coding set to UTF-8 -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- setting content width to be optimised for all devices -->
+    <!-- initial page appearance set to zoom scale of 1 -->
+
+    <title>Admin Panel</title>
+
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    <!--use Bootstrap and CSS styles in the file -->
+</head>
+
+
+<body> <!-- Header section with Team Logo -->
+    <div class="header">
+        <img class="logo" src="/EventTeamLogo.png" alt="Logo">
+    </div>
+    
+    <!-- Middle content section -->
+    <div class="content">
+        <h1>Add Event</h1>
+        <p>Please enter information regarding event details</p>
+    </div>
+    
+    <!--Main content section -->
+    <main>
+        <div class="album py-5"> <!-- Using bootstrap to create a styled container -->
+            <div class="container"> <!--Creating a container -->
+                <div class="row row-cols-1 row-cols-sm-2 g-3"> <!-- Creating a grid layout with specific number of columns -->
+                    <div class="col mx-auto"> <!-- Applying mx-auto class to center the columns -->
+                        <div class="card shadow-sm"> <!-- Creating a card that has a shadow effect -->
+                            <div class="card-header"> <!-- Creating a header in the card -->
+                                <h4 class="my-0 fw-normal">Delete Event</h4>
+                            </div>
+                            <div class="card-body text-center"> <!-- Body of the card -->
+                                <!-- Form for how to delete event -->
+                                <form action="/kendrick/event/delete-event-post" method="POST">
+                                    <div class="mb-3">
+                                        <p>Please enter Event ID into the URL and then click "Submit"</p>
+                                        <p>Before submitting, ensure that the URL looks like</p>
+                                        <p>"http://localhost:8081/kendrick/event/delete-event?eventId=EYZ-9876"</p>
+                                        <p>After doing so, press "enter" in your browser then click "submit"</p>
+                                    </div>
+                                    <button class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

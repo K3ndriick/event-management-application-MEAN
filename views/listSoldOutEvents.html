@@ -1,0 +1,96 @@
+<!DOCTYPE html> <!-- declaring  document type as HTML 5 -->
+<html lang="en"> <!-- declaring English as language for HTML file content -->
+
+
+<head>
+    <meta charset="UTF-8"> <!--character coding set to UTF-8 -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- setting content width to be optimised for all devices -->
+    <!-- initial page appearance set to zoom scale of 1 -->
+
+    <title>Admin Panel</title>
+
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    <!--use Bootstrap and CSS styles in the file -->
+</head>
+
+
+<body> <!-- Header section with Team Logo -->
+    <div class="header">
+        <img class="logo" src="/EventTeamLogo.png" alt="Logo">
+    </div>
+    
+    <!-- Middle content section -->
+    <div class="content">
+        <h1>Sold Out Event List</h1>
+        <p>Show sold out events</p>
+    </div>
+
+
+    <div class="album py-5"> <!-- Using bootstrap to create a styled container -->
+        <div class="container"> <!-- Creating a container -->
+            <h3 class="my-2">Event table</h3> 
+            <div class="row row-cols-1 g-3"> <!-- Creating a grid layout with specific number of columns -->
+                <div class="col"> <!-- Creating a column-->
+                    <table class="table table-hover"> <!-- Creating a table with hover effect -->
+                        <thead>
+                            <tr>
+                                <!-- Creating table headers-->
+                                <th scope="col">Event Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Start Date Time</th>
+                                <th scope="col">Duration</th>
+                                <th scope="col">Is Active</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Capacity</th>
+                                <th scope="col">Tickets Available</th>
+                                <th scope="col">Category Id</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        
+                        <!-- Looping through database records and outputting events that are sold out -->
+                        <tbody>
+                            <% for (let i = 0; i <records.length; i++) { %>
+                                <% if (records[i].ticketsAvailable === 0) { %>
+                                    <tr>
+                                    <th scope="row"><%= records[i].id %></th>
+                                    <td><%= records[i].name %></td>
+                                    <td><%= records[i].description %></td>
+                                    <td><%= records[i].startDateTime %></td>
+                                    <td><%= records[i].formattedDurationInMinutes() %></td>
+                                    <td><%= records[i].isActive %></td>
+                                    <td>
+                                        <%= records[i].image %>
+                                        <% if (records[i].image === '/event-category.png') { %>
+                                            <img class="logo" src=<%= records[i].image %> alt="Logo">
+                                            <% }
+                                            else { %>
+                                                <img class="logo" src="/error-Image.png" alt="Default Logo">
+                                                <% } %>
+                                    </td>
+                                    <td><%= records[i].capacity %></td>
+                                    <td><%= records[i].ticketsAvailable %></td>
+                                    <td><%= records[i].categoryId %></td>
+                                    <!-- Button to view the record's details-->
+                                    <td>
+                                        <form action="/category/33207798/event/<%= records[i].id %>" method="GET">
+                                            <button class="button">View</button>
+                                        </form>
+                                    </td>
+                                    </tr>
+                                <% } %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>

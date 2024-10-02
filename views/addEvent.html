@@ -1,0 +1,112 @@
+<!DOCTYPE html> <!-- declaring  document type as HTML 5 -->
+<html lang="en"> <!-- declaring English as language for HTML file content -->
+
+
+<head>
+    <meta charset="UTF-8"> <!--character coding set to UTF-8 -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- setting content width to be optimised for all devices -->
+    <!-- initial page appearance set to zoom scale of 1 -->
+
+    <title>Admin Panel</title>
+
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <link href="/style.css" rel="stylesheet">
+    <!--use Bootstrap and CSS styles in the file -->
+</head>
+
+
+<body> <!-- Header section with Team Logo -->
+    <div class="header">
+        <img class="logo" src="/EventTeamLogo.png" alt="Logo">
+    </div>
+    
+    <!-- Middle content section -->
+    <div class="content">
+        <h1>Add Event</h1>
+        <p>Please enter information regarding event details</p>
+    </div>
+    
+    <!--Main content section -->
+    <main>
+        <div class="album py-5"> <!-- Using bootstrap to create a styled container -->
+            <div class="container"> <!--Creating a container -->
+                <div class="row row-cols-1 row-cols-sm-2 g-3"> <!-- Creating a grid layout with specific number of columns -->
+                    <div class="col mx-auto"> <!-- Applying mx-auto class to center the columns -->
+                        <div class="card shadow-sm"> <!-- Creating a card that has a shadow effect -->
+                            <div class="card-header"> <!-- Creating a header in the card -->
+                                <h4 class="my-0 fw-normal">Event Information</h4>
+                            </div>
+                            <div class="card-body text-center"> <!-- Body of the card -->
+                                <!-- Form for event information input -->
+                                <form action="/kendrick/event/add-event-post" method="POST">
+
+                                    <!-- name input -->
+                                    <div class="mb-3">
+                                        <label for="Name" class="form-label">Event Name</label>
+                                        <input type="text" name="Name" class="form-control" id="Name" placeholder="Enter event name" required/>
+                                    </div>
+    
+                                    <!-- description input -->
+                                    <div class="mb-3">
+                                        <label for="Description" class="form-label">Description</label>
+                                        <textarea name="Description" class="form-control" id="Description" rows="3"></textarea>
+                                        <!--input type="text" name="Description" class="form-control" id="Description" placeholder="Enter event description"/-->
+
+                                    </div>
+
+                                    <!-- startDateTime input -->
+                                    <div class="mb-3">
+                                        <label for="StartDateTime" class="form-label">Start Date Time</label>
+                                        <input type="datetime-local" name="StartDateTime" class="form-control" id="StartDateTime" placeholder="2022-12-31T23:11" required>
+                                    </div>
+
+                                    <!-- durationInMinutes input -->
+                                    <div class="mb-3">
+                                        <label for="DurationInMinutes" class="form-label">Duration (in minutes) </label>
+                                        <input type="number" name="DurationInMinutes" class="form-control" id="DurationInMinutes" inputmode="numeric" placeholder="Please enter duration in minutes" required>
+                                    </div>
+
+                                    <!-- isActive input -->
+                                    <div class="mb-3">
+                                        <input type="checkbox" id="IsActive" name="IsActive" value="true">
+                                        <label for="IsActive" class="form-label">Is Active </label>
+                                    </div>
+    
+                                    <!-- image input -->
+                                    <div>
+                                        <label for="Image" class="form-label">Image </label>
+                                        <input type="text" name="Image" class="form-control" id="Image" placeholder="Enter static source path">
+                                    </div>
+
+                                    <!-- capacity input -->
+                                    <div class="mb-3">
+                                        <label for="Capacity" class="form-label">Capacity </label>
+                                        <input type="number" name="Capacity" class="form-control" id="Capacity" inputmode="numeric" placeholder="Please enter Capacity">
+                                    </div>
+
+                                    <!-- ticketsAvailable input -->
+                                    <div class="mb-3">
+                                        <label for="TicketsAvailable" class="form-label">Tickets Available </label>
+                                        <input type="number" name="TicketsAvailable" class="form-control" id="TicketsAvailable" placeholder="Please enter Number of Available Tickets">
+                                    </div>
+
+                                    <!-- categoryId input -->
+                                    <div class="mb-3">
+                                        <label for="CategoryId" class="form-label">Category Id </label>
+                                        <input type="text" name="CategoryId" class="form-control" id="CategoryId" placeholder="CYZ-4321" required>
+                                    </div>
+
+                                    <!-- Submit button -->
+                                    <button class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

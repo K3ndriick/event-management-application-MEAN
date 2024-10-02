@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <!-- Include Bootstrap min CSS -->
+    <link href="/bootstrap.min.css" rel="stylesheet">
+    <!-- Include style css -->
+    <link href="/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header section
+         with /EventTeamLogo.png
+         image
+    -->
+    <div class="header">
+        <img class="logo" src="/EventTeamLogo.png" alt="Logo">
+    </div>
+    
+    <!-- Content section -->
+    <div class="content">
+        <h1>Category List</h1>
+        <p>Show category</p>
+    </div>
+
+    <!-- Create a container for an album-like section on a web page. -->
+    <div class="album py-5">
+        <!-- Create a container that provides a responsive and centered layout for the content within it. -->
+        <div class="container">
+            
+            <h3 class="my-2">Category table</h3>
+
+            <div class="row row-cols-1 g-3">
+                <div class="col">
+                    <!-- Table to display records -->
+                    <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Created Date</th>
+                            <th scope="col">Actions</th>
+
+                          </tr>
+                        </thead>
+                        
+                        <tbody>
+                            <!-- Loop through records databaeses and populate table rows -->
+                            <% for (let i=0; i <records.length; i++){ %>
+                            <tr>
+                            <th scope="row"><%= records[i].modifyId %></th>
+                            <td><%= records[i].name %></td>
+                            <td><%= records[i].description %></td>
+                            <td>
+                                <%= records[i].image %>
+                                <% if (records[i].image === '/event-category.png') { %>
+                                    <img class="logo" src=<%= records[i].image %> alt="Logo">
+                                <% } else { %>
+                                <img class="logo" src="/error-Image.png" alt="Default Logo">
+                                <% } %>
+                                
+                            </td>
+                            <td><%= records[i].formattedDate() %></td>
+                            <td>
+                                <!-- Button to view record details -->
+                                <a href="/kendrick/event/category-detail/<%= records[i].modifyId %>" class="button-link">View</a>
+
+                            </td>
+                          </tr>
+                          <% } %>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>
